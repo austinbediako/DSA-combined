@@ -1,0 +1,33 @@
+# Data
+
+Local CSV data used to seed the database, per `docs/DATA_DICTIONARY.md`
+and `Joint_DSA_Project_Brief.md` §4.
+
+- `raw/` — CSV files as first constructed/collected (locations, roads,
+  service_requests, resources, algorithm_runs).
+- `processed/` — cleaned/validated CSV files ready for import into
+  SQLite, if a separate cleaning step is needed.
+
+## Rules for this data
+
+1. **Local names only.** Locations, routes, and service categories must
+   use Ghana / University of Ghana names and terminology (e.g. actual
+   hall names, campus areas), not generic placeholder data.
+2. **No personal data.** Do not include real student/staff names, ID
+   numbers, phone numbers, or any other personally identifiable
+   information, per the brief's AI-resistance and localisation
+   requirements (§2).
+3. **Document provenance.** Each CSV (or this README) must record how
+   the data was constructed from local knowledge — e.g. "hostel names
+   sourced from public UG campus directory; travel times estimated by
+   team members familiar with the routes."
+
+## Naming convention
+
+```
+data/raw/<entity>_raw.csv          e.g. locations_raw.csv
+data/processed/<entity>.csv        e.g. locations.csv
+```
+
+Column headers should match the field names in
+`docs/DATA_DICTIONARY.md` and `database/schema.sql`.
