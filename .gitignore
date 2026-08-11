@@ -1,0 +1,22 @@
+# Maven
+target/
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# OS
+.DS_Store
+
+# SQLite runtime database files (keep schema.sql and seed CSVs, not generated DBs)
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
