@@ -20,3 +20,8 @@ target/
 
 # Logs
 *.log
+
+# AI coding agent tooling/config (local only, not project source)
+.claude/
+.codex/
+.agents/
