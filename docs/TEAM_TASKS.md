@@ -23,7 +23,7 @@ Deliverables: BST, red-black tree, B-tree, disjoint set, graph
 
 | Member | Structure/Algorithm owned | Status |
 |---|---|---|
-| _(unassigned)_ | | pending |
+| Austin Bediako | Graph Algorithms & Route Optimization: BFS, DFS, Dijkstra, Prim, Kruskal | pending |
 | _(unassigned)_ | | pending |
 | _(unassigned)_ | | pending |
 
@@ -50,7 +50,7 @@ persistence layer, CSV import/export, data dictionary.
 
 | Member | Area owned | Status |
 |---|---|---|
-| _(unassigned)_ | | pending |
+| Amankwah John Adjei | Database design and Data management | pending |
 | _(unassigned)_ | | pending |
 
 ## Testing, Evidence & Presentation (4 members)
