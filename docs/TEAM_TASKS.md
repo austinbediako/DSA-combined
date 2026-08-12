@@ -12,8 +12,8 @@ deque, priority queue/heap, hash table, set/map — each with unit tests
 
 | Member | Structure(s) owned | Status |
 |---|---|---|
-| _(unassigned)_ | | pending |
-| _(unassigned)_ | | pending |
+| Aidan Be-ir | Custom Data Structures | pending |
+| Noble Ackah-Yensu | Custom Data Structures | pending |
 | _(unassigned)_ | | pending |
 
 ## Graph & Network (3 members)
@@ -23,11 +23,11 @@ Deliverables: BST, red-black tree, B-tree, disjoint set, graph
 
 | Member | Structure/Algorithm owned | Status |
 |---|---|---|
-| _(unassigned)_ | | pending |
+| Austin Bediako | Graph Algorithms & Route Optimization: BFS, DFS, Dijkstra, Prim, Kruskal | pending |
 | _(unassigned)_ | | pending |
 | _(unassigned)_ | | pending |
 
-## Algorithms & Scheduling (3 members)
+## Algorithms & Scheduling (5 members)
 
 Deliverables: linear/binary search, selection/insertion/merge/quicksort,
 greedy resource/route assignment (with counterexample), DP
@@ -36,9 +36,11 @@ service scheduling engine (FIFO/priority dispatch rules).
 
 | Member | Algorithm(s) owned | Status |
 |---|---|---|
-| _(unassigned)_ | | pending |
-| _(unassigned)_ | | pending |
-| _(unassigned)_ | | pending |
+| Selase Akusika Akumah | Searching and Sorting Algorithms | pending |
+| Cyril-Devon Nyamful | Searching and Sorting Algorithms | pending |
+| Acquah Isaac Junior | Searching and Sorting Algorithms | pending |
+| Boanu Samuel Kyere | Searching and Sorting Algorithms | pending |
+| Joseph Akondoh-Tetteh jnr | Scheduling and Optimization | pending |
 
 ## Data & Integration (2 members)
 
@@ -48,10 +50,10 @@ persistence layer, CSV import/export, data dictionary.
 
 | Member | Area owned | Status |
 |---|---|---|
-| _(unassigned)_ | | pending |
+| Amankwah John Adjei | Database design and Data management | pending |
 | _(unassigned)_ | | pending |
 
-## Testing, Evidence & Presentation (3 members)
+## Testing, Evidence & Presentation (4 members)
 
 Deliverables: 40+ unit tests coordination, 6 trace tables, 3 proof
 sketches, 2 counterexamples, performance experiments (CSV + graphs),
@@ -59,9 +61,10 @@ development log, final report assembly, demonstration video.
 
 | Member | Area owned | Status |
 |---|---|---|
-| _(unassigned)_ | | pending |
-| _(unassigned)_ | | pending |
-| _(unassigned)_ | | pending |
+| Nicole Eshun | Testing and Performance Analysis | pending |
+| Simon Awematu Danonase | Testing and Performance Analysis | pending |
+| Appiah Ebo Acquah | Documentation & Presentation | pending |
+| Joy Oforiwaa Ampadu | Documentation & Presentation | pending |
 
 ## Cross-cutting reminders
 
