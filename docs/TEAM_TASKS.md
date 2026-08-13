@@ -53,7 +53,7 @@ persistence layer, CSV import/export, data dictionary.
 | Amankwah John Adjei | Database design and Data management | pending |
 | _(unassigned)_ | | pending |
 
-## Testing, Evidence & Presentation (4 members)
+## Testing, Evidence & Presentation (5 members)
 
 Deliverables: 40+ unit tests coordination, 6 trace tables, 3 proof
 sketches, 2 counterexamples, performance experiments (CSV + graphs),
@@ -65,6 +65,7 @@ development log, final report assembly, demonstration video.
 | Simon Awematu Danonase | Testing and Performance Analysis | pending |
 | Appiah Ebo Acquah | Documentation & Presentation | pending |
 | Joy Oforiwaa Ampadu | Documentation & Presentation | pending |
+| Abena Serwaa Dwamena | Documentation & Presentation | pending |
 
 ## Cross-cutting reminders
 
