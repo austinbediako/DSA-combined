@@ -32,8 +32,9 @@ CREATE TABLE IF NOT EXISTS roads (
 );
 
 -- Service requests: maintenance jobs, lab-resource movement, shuttle requests, etc.
+-- request_id is TEXT (e.g. "REQ-001") to match the team's seed dataset.
 CREATE TABLE IF NOT EXISTS service_requests (
-    request_id       INTEGER PRIMARY KEY AUTOINCREMENT,
+    request_id       TEXT PRIMARY KEY,
     source_location_id      INTEGER NOT NULL,
     destination_location_id INTEGER NOT NULL,
     category         TEXT NOT NULL,          -- e.g. maintenance, shuttle, lab-resource
@@ -46,8 +47,9 @@ CREATE TABLE IF NOT EXISTS service_requests (
 );
 
 -- Assignable resources: shuttles, maintenance staff, porters, equipment, etc.
+-- resource_id is TEXT (e.g. "RES-001") to match the team's seed dataset.
 CREATE TABLE IF NOT EXISTS resources (
-    resource_id       INTEGER PRIMARY KEY AUTOINCREMENT,
+    resource_id       TEXT PRIMARY KEY,
     type              TEXT NOT NULL,          -- e.g. shuttle, technician, porter
     home_location_id  INTEGER NOT NULL,
     capacity          INTEGER NOT NULL,
@@ -69,7 +71,7 @@ CREATE TABLE IF NOT EXISTS algorithm_runs (
 CREATE TABLE IF NOT EXISTS audit_events (
     event_id          INTEGER PRIMARY KEY AUTOINCREMENT,
     event_type        TEXT NOT NULL,          -- e.g. ASSIGN, UNDO_ASSIGN, STATUS_CHANGE
-    related_request_id INTEGER,
+    related_request_id TEXT,
     description       TEXT NOT NULL,
     event_time        TEXT NOT NULL,          -- ISO-8601 timestamp
     FOREIGN KEY (related_request_id) REFERENCES service_requests(request_id)

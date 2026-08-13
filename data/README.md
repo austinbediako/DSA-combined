@@ -31,3 +31,13 @@ data/processed/<entity>.csv        e.g. locations.csv
 
 Column headers should match the field names in
 `docs/DATA_DICTIONARY.md` and `database/schema.sql`.
+
+## Provenance log
+
+| File | Source | Notes |
+|---|---|---|
+| `resources.csv` (30 records) | AI-generated synthetic operational data (shuttles, technicians, porters, etc.), grounded in `locations.csv` (see the separate locations PR). | No personal data — resource labels only (e.g. "Technician-Electrical"), no named individuals. Programmatically validated: exact count, no duplicate ids, all `home_location_id` values resolve to a real location, valid `availability_status` values. IDs are `TEXT` (e.g. "RES-001"); `database/schema.sql` was updated to match. |
+| `service_requests.csv` (300 records) | AI-generated synthetic operational data spread across a simulated 2-week window (Aug 1–13, 2026), grounded in `locations.csv`. Urgency/status weighted realistically (mostly LOW/MEDIUM urgency; older requests DONE, recent ones PENDING/ASSIGNED/IN_PROGRESS). | No personal data. Programmatically validated: exact count, no duplicate ids, all source/destination location ids resolve, valid urgency/status enums, no malformed or inverted (deadline-before-submission) dates. IDs are `TEXT` (e.g. "REQ-001"); `database/schema.sql` was updated to match. |
+
+Update this table whenever a new CSV is added (locations, roads,
+algorithm_runs), noting how it was produced and any caveats.
