@@ -7,16 +7,16 @@ team changes types here (or vice versa) so the two stay in sync.
 Per the brief (§4), minimum record counts: 50 locations, 100 roads,
 300 service requests, 30 resources, 30 algorithm runs.
 
-## `locations` (minimum 50 records)
+## `locations` (minimum 50 records) — DONE, see `data/processed/locations.csv`
 
-| Field | Type | Description | Example (fill in) |
+| Field | Type | Description | Example |
 |---|---|---|---|
-| location_id | INTEGER (PK) | Unique identifier | |
-| name | TEXT | Local place name | e.g. "Commonwealth Hall" |
-| area | TEXT | Campus zone/precinct | |
-| type | TEXT | hostel / lab / lecture hall / shuttle stop / ... | |
-| latitude | REAL | Local coordinate (or synthetic) | |
-| longitude | REAL | Local coordinate (or synthetic) | |
+| location_id | INTEGER (PK) | Unique identifier | 1 |
+| name | TEXT | Local place name | "Commonwealth Hall" |
+| area | TEXT | Campus zone/precinct | "Legon Hill" |
+| type | TEXT | Hostel / Lab / Lecture Hall / Shuttle Stop / Clinic / Admin / Library / Dining / Recreation / Sports | "Hostel" |
+| latitude | REAL | Coordinate | 5.6521 |
+| longitude | REAL | Coordinate | -0.1874 |
 
 ## `roads` (minimum 100 records)
 
@@ -29,28 +29,28 @@ Per the brief (§4), minimum record counts: 50 locations, 100 roads,
 | travel_time | REAL | Minutes | |
 | road_condition_weight | REAL | Penalty factor (1.0 = ideal) | |
 
-## `service_requests` (minimum 300 records)
+## `service_requests` (minimum 300 records) — DONE, see `data/processed/service_requests.csv`
 
-| Field | Type | Description | Example (fill in) |
+| Field | Type | Description | Example |
 |---|---|---|---|
-| request_id | INTEGER (PK) | Unique identifier | |
-| source_location_id | INTEGER (FK) | Request origin | |
-| destination_location_id | INTEGER (FK) | Request destination | |
-| category | TEXT | maintenance / shuttle / lab-resource / ... | |
-| urgency | TEXT | LOW / MEDIUM / HIGH / CRITICAL (confirm scale) | |
-| time_submitted | TEXT (ISO-8601) | Submission timestamp | |
-| deadline | TEXT (ISO-8601, nullable) | Deadline if any | |
-| status | TEXT | PENDING / ASSIGNED / IN_PROGRESS / DONE / CANCELLED | |
+| request_id | TEXT (PK) | Unique identifier, e.g. "REQ-001" | "REQ-001" |
+| source_location_id | INTEGER (FK) | Request origin | 1 |
+| destination_location_id | INTEGER (FK) | Request destination | 1 |
+| category | TEXT | plumbing / electrical / carpentry / IT_network / lab_equipment / waste_management / shuttle_transit | "plumbing" |
+| urgency | TEXT | LOW / MEDIUM / HIGH / CRITICAL | "MEDIUM" |
+| time_submitted | TEXT (ISO-8601) | Submission timestamp | "2026-08-01T07:15:00Z" |
+| deadline | TEXT (ISO-8601, nullable) | Deadline if any | "2026-08-02T07:15:00Z" |
+| status | TEXT | PENDING / ASSIGNED / IN_PROGRESS / DONE / CANCELLED | "DONE" |
 
-## `resources` (minimum 30 records)
+## `resources` (minimum 30 records) — DONE, see `data/processed/resources.csv`
 
-| Field | Type | Description | Example (fill in) |
+| Field | Type | Description | Example |
 |---|---|---|---|
-| resource_id | INTEGER (PK) | Unique identifier | |
-| type | TEXT | shuttle / technician / porter / ... | |
-| home_location_id | INTEGER (FK) | Home base | |
-| capacity | INTEGER | Capacity (people, load, etc.) | |
-| availability_status | TEXT | AVAILABLE / BUSY / OFFLINE | |
+| resource_id | TEXT (PK) | Unique identifier, e.g. "RES-001" | "RES-001" |
+| type | TEXT | Shuttle-Bus / Shuttle-Van / Technician-Electrical / Technician-Plumbing / IT-Support-Agent / Carpenter / Lab-Equipment-Tech / Porter / Maintenance-Crew / Waste-Management-Truck | "Shuttle-Bus" |
+| home_location_id | INTEGER (FK) | Home base | 40 |
+| capacity | INTEGER | Capacity (seats, staff count, load, etc.) | 45 |
+| availability_status | TEXT | AVAILABLE / BUSY / OFFLINE | "AVAILABLE" |
 
 ## `algorithm_runs` (minimum 30 records)
 
