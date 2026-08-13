@@ -41,7 +41,9 @@ CREATE TABLE IF NOT EXISTS service_requests (
     urgency          TEXT NOT NULL,          -- e.g. LOW, MEDIUM, HIGH, CRITICAL
     time_submitted   TEXT NOT NULL,          -- ISO-8601 timestamp
     deadline          TEXT,                   -- ISO-8601 timestamp, nullable
+    assigned_resource_id TEXT,
     status            TEXT NOT NULL DEFAULT 'PENDING', -- PENDING, ASSIGNED, IN_PROGRESS, DONE, CANCELLED
+    FOREIGN KEY (assigned_resource_id) REFERENCES resources(resource_id),
     FOREIGN KEY (source_location_id) REFERENCES locations(location_id),
     FOREIGN KEY (destination_location_id) REFERENCES locations(location_id)
 );
