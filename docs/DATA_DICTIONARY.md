@@ -18,16 +18,16 @@ Per the brief (§4), minimum record counts: 50 locations, 100 roads,
 | latitude | REAL | Coordinate | 5.6521 |
 | longitude | REAL | Coordinate | -0.1874 |
 
-## `roads` (minimum 100 records)
+## `roads` (minimum 100 records) — DONE, see `data/processed/roads.csv`
 
-| Field | Type | Description | Example (fill in) |
+| Field | Type | Description | Example |
 |---|---|---|---|
-| road_id | INTEGER (PK) | Unique identifier | |
-| from_location_id | INTEGER (FK -> locations) | Edge start | |
-| to_location_id | INTEGER (FK -> locations) | Edge end | |
-| distance | REAL | Distance (unit: TBD) | |
-| travel_time | REAL | Minutes | |
-| road_condition_weight | REAL | Penalty factor (1.0 = ideal) | |
+| road_id | INTEGER (PK) | Unique identifier | 1 |
+| from_location_id | INTEGER (FK -> locations) | Edge start | 40 |
+| to_location_id | INTEGER (FK -> locations) | Edge end | 41 |
+| distance | REAL | Distance in metres | 1300 |
+| travel_time | REAL | Minutes | 4 |
+| road_condition_weight | REAL | Penalty factor (1.0 = ideal, higher = worse) | 1.2 |
 
 ## `service_requests` (minimum 300 records) — DONE, see `data/processed/service_requests.csv`
 
