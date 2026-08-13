@@ -37,6 +37,8 @@ Column headers should match the field names in
 | File | Source | Notes |
 |---|---|---|
 | `locations.csv` (50 records) | AI-assisted web research prompted against public University of Ghana, Legon campus references (official site, campus maps), cross-checked for duplicate ids/names and plausible lat/long bounds (5.60–5.70 N, -0.22–-0.15 E) before acceptance. | No personal data. Coordinates for some minor buildings are the AI's best estimate rather than confirmed survey data — team should spot-check a sample against a real campus map before final submission. |
+| `resources.csv` (30 records) | AI-generated synthetic operational data (shuttles, technicians, porters, etc.), grounded in `locations.csv`. | No personal data — resource labels only (e.g. "Technician-Electrical"), no named individuals. Programmatically validated: exact count, no duplicate ids, all `home_location_id` values resolve to a real location, valid `availability_status` values. IDs are `TEXT` (e.g. "RES-001"); `database/schema.sql` was updated to match. |
+| `service_requests.csv` (300 records) | AI-generated synthetic operational data spread across a simulated 2-week window (Aug 1–13, 2026), grounded in `locations.csv`. Urgency/status weighted realistically (mostly LOW/MEDIUM urgency; older requests DONE, recent ones PENDING/ASSIGNED/IN_PROGRESS). | No personal data. Programmatically validated: exact count, no duplicate ids, all source/destination location ids resolve, valid urgency/status enums, no malformed or inverted (deadline-before-submission) dates. IDs are `TEXT` (e.g. "REQ-001"); `database/schema.sql` was updated to match. |
 
-Update this table whenever a new CSV is added (roads, service_requests,
-resources), noting how it was produced and any caveats.
+Update this table whenever a new CSV is added (roads, algorithm_runs),
+noting how it was produced and any caveats.
