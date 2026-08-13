@@ -1,6 +1,6 @@
 # Team Task Board
 
-14 members across 5 teams. Fill in names as members are assigned; keep
+15 members across 5 teams. Fill in names as members are assigned; keep
 task ownership visible so accountability at oral defense (brief §2.5:
 every member defends one structure and one algorithm) is traceable.
 
@@ -53,7 +53,7 @@ persistence layer, CSV import/export, data dictionary.
 | Amankwah John Adjei | Database design and Data management | pending |
 | _(unassigned)_ | | pending |
 
-## Testing, Evidence & Presentation (5 members)
+## Testing, Evidence & Presentation (6 members)
 
 Deliverables: 40+ unit tests coordination, 6 trace tables, 3 proof
 sketches, 2 counterexamples, performance experiments (CSV + graphs),
@@ -66,6 +66,7 @@ development log, final report assembly, demonstration video.
 | Appiah Ebo Acquah | Documentation & Presentation | pending |
 | Joy Oforiwaa Ampadu | Documentation & Presentation | pending |
 | Abena Serwaa Dwamena | Documentation & Presentation | pending |
+| Kenny Idan | Planning & Requirements Analysis: Problem analysis, flowcharts, pseudocode, documentation | pending |
 
 ## Cross-cutting reminders
 
