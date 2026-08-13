@@ -31,3 +31,12 @@ data/processed/<entity>.csv        e.g. locations.csv
 
 Column headers should match the field names in
 `docs/DATA_DICTIONARY.md` and `database/schema.sql`.
+
+## Provenance log
+
+| File | Source | Notes |
+|---|---|---|
+| `locations.csv` (50 records) | AI-assisted web research prompted against public University of Ghana, Legon campus references (official site, campus maps), cross-checked for duplicate ids/names and plausible lat/long bounds (5.60–5.70 N, -0.22–-0.15 E) before acceptance. | No personal data. Coordinates for some minor buildings are the AI's best estimate rather than confirmed survey data — team should spot-check a sample against a real campus map before final submission. |
+
+Update this table whenever a new CSV is added (roads, service_requests,
+resources), noting how it was produced and any caveats.
