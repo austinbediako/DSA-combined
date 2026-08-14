@@ -30,14 +30,14 @@ and invalid-input cases (brief §8.3).
 | Set / map | 0 | |
 | Disjoint set | 0 | |
 | Graph (adjacency list/matrix) | 0 | |
-| Search (linear/binary) | 0 | |
-| Sort (selection/insertion/merge/quick) | 0 | |
+| Search (linear/binary) | 11 | linear search done (normal/boundary/duplicate/invalid + ServiceRequest key search); binary search still pending |
+| Sort (selection/insertion/merge/quick) | 13 | selection sort done (normal/boundary/duplicate/invalid + ServiceRequest comparator sort incl. tiebreak); insertion/merge/quick still pending |
 | Greedy algorithm | 0 | |
 | Dynamic programming | 0 | |
 | BFS / DFS | 0 | |
 | Dijkstra | 0 | |
 | Prim / Kruskal | 0 | |
-| **Total** | **0 / 40** | |
+| **Total** | **24 / 40** | |
 
 ## Trace tables (target: 6, brief §10)
 
