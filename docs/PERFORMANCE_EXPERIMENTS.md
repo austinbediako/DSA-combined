@@ -9,12 +9,11 @@ CSV (`evidence/benchmarks/`) and plot line graphs (`evidence/graphs/`).
 
 | Field | Value |
 |---|---|
-| CPU | |
-| RAM | |
-| OS | |
-| Java version | |
-| Date of experiments | |
-
+| CPU | Intel(R) Core(TM) i3-10110U CPU @ 2.10GHz |
+| RAM | 7.84 GB |
+| OS | Windows 11 |
+| Java version | OpenJDK 25.0.3 Temurin |
+| Date of experiments | August 15, 2026 |
 ## Required experiments
 
 | # | Experiment | Minimum input sizes | Expected graph | CSV file | Graph file | Done? |
