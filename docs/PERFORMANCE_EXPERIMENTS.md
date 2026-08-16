@@ -9,17 +9,17 @@ CSV (`evidence/benchmarks/`) and plot line graphs (`evidence/graphs/`).
 
 | Field | Value |
 |---|---|
-| CPU | |
-| RAM | |
-| OS | |
-| Java version | |
-| Date of experiments | |
+| CPU | Intel(R) Core(TM) i3-10110U CPU @ 2.10GHz |
+| RAM | 7.84 GB |
+| OS | Windows 11 |
+| Java version | OpenJDK 25.0.3 Temurin |
+| Date of experiments | August 15, 2026 |
 
 ## Required experiments
 
 | # | Experiment | Minimum input sizes | Expected graph | CSV file | Graph file | Done? |
 |---|---|---|---|---|---|---|
-| 1 | Search comparison | 100, 500, 1,000, 5,000, 10,000 records | linear vs binary search runtime | `evidence/benchmarks/search_comparison.csv` | `evidence/graphs/search_comparison.png` | ☐ |
+| 1 | Search comparison | 100, 500, 1,000, 5,000, 10,000 records | linear vs binary search runtime | `evidence/benchmarks/search_comparison.csv` | `evidence/graphs/search_comparison.png` | Done |
 | 2 | Sorting comparison | 100, 500, 1,000, 5,000, 10,000 requests | selection, insertion, merge, quicksort | `evidence/benchmarks/sorting_comparison.csv` | `evidence/graphs/sorting_comparison.png` | ☐ |
 | 3 | Hash table load factor | 100 to 20,000 keys, varying table sizes | load factor vs collision count/time | `evidence/benchmarks/hash_load_factor.csv` | `evidence/graphs/hash_load_factor.png` | ☐ |
 | 4 | BST vs balanced tree | insert/search at multiple sizes | height and search time comparison | `evidence/benchmarks/bst_vs_balanced.csv` | `evidence/graphs/bst_vs_balanced.png` | ☐ |
