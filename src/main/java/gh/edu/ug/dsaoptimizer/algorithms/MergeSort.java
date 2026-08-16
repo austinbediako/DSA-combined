@@ -5,7 +5,13 @@ import java.util.Comparator;
 public class MergeSort {
 
     public static <T> void sort(T[] array, Comparator<? super T> comparator) {
-        if (array == null || array.length <= 1 || comparator == null) {
+        if (array == null) {
+            throw new IllegalArgumentException("array must not be null");
+        }
+        if (comparator == null) {
+            throw new IllegalArgumentException("comparator must not be null");
+        }
+        if (array.length <= 1) {
             return;
         }
         mergeSort(array, 0, array.length - 1, comparator);
