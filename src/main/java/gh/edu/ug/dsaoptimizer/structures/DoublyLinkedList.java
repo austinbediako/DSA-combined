@@ -147,6 +147,26 @@ public class DoublyLinkedList<T> {
         return tail == null ? null : tail.value;
     }
 
+    /**
+     * Returns all elements from head to tail as a plain array.
+     *
+     * <p>Returns {@code Object[]} rather than {@code T[]}: Java cannot
+     * safely create a generic array at runtime without a {@code Class<T>}
+     * token (type erasure), so casting an {@code Object[]} to {@code T[]}
+     * here would compile but throw {@code ClassCastException} at the
+     * caller's first typed array assignment.
+     */
+    public Object[] toArray() {
+        Object[] result = new Object[size];
+        Node<T> cur = head;
+        int i = 0;
+        while (cur != null) {
+            result[i++] = cur.value;
+            cur = cur.next;
+        }
+        return result;
+    }
+
     public void clear() {
         Node<T> cur = head;
         while (cur != null) {

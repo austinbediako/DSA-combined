@@ -93,4 +93,19 @@ class DoublyLinkedListTest {
         assertTrue(list.isEmpty());
         assertThrows(IndexOutOfBoundsException.class, () -> list.get(0));
     }
+
+    @Test
+    void testToArrayReturnsElementsHeadToTail() {
+        DoublyLinkedList<String> list = new DoublyLinkedList<>();
+        list.addLast("A");
+        list.addLast("B");
+        list.addLast("C");
+        assertArrayEquals(new String[]{"A", "B", "C"}, list.toArray());
+    }
+
+    @Test
+    void testToArrayOnEmptyListReturnsEmptyArray() {
+        DoublyLinkedList<String> list = new DoublyLinkedList<>();
+        assertEquals(0, list.toArray().length);
+    }
 }

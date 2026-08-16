@@ -1,8 +1,5 @@
 package gh.edu.ug.dsaoptimizer.structures;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Directed, weighted graph using adjacency lists backed by custom HashTable.
  * - Generic node type T (must implement equals/hashCode reasonably).
@@ -108,10 +105,14 @@ public class Graph<T> {
     }
 
     /**
-     * Compute shortest path from source to target using Dijkstra. Returns the path as a list from source..target
-     * or null if target unreachable. Throws if source/target not present.
+     * Compute shortest path from source to target using Dijkstra. Returns
+     * the path as an array from source..target, or null if target
+     * unreachable. Throws if source/target not present.
+     *
+     * <p>Returns {@code Object[]} rather than {@code T[]} for the same
+     * type-erasure reason as {@link DoublyLinkedList#toArray()}.
      */
-    public List<T> shortestPath(T source, T target) {
+    public Object[] shortestPath(T source, T target) {
         if (source == null || target == null) throw new NullPointerException("nodes cannot be null");
         if (!adj.containsKey(source) || !adj.containsKey(target)) throw new IllegalArgumentException("source/target not in graph");
 
@@ -156,10 +157,8 @@ public class Graph<T> {
             cur = pred.get(cur);
         }
 
-        // convert deque to list
-        List<T> path = new ArrayList<>();
-        while (!dq.isEmpty()) path.add(dq.removeFirst());
-        if (path.isEmpty() || !path.get(0).equals(source)) return null;
+        Object[] path = dq.toArray();
+        if (path.length == 0 || !path[0].equals(source)) return null;
         return path;
     }
 

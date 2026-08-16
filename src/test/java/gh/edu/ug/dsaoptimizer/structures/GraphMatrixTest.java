@@ -2,8 +2,6 @@ package gh.edu.ug.dsaoptimizer.structures;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class GraphMatrixTest {
@@ -23,9 +21,9 @@ class GraphMatrixTest {
         assertEquals(3.0, dist.get("C"));
         assertEquals(4.0, dist.get("D"));
 
-        List<String> path = g.shortestPath("A", "D");
+        Object[] path = g.shortestPath("A", "D");
         assertNotNull(path);
-        assertArrayEquals(new String[]{"A", "B", "C", "D"}, path.toArray());
+        assertArrayEquals(new String[]{"A", "B", "C", "D"}, path);
     }
 
     @Test

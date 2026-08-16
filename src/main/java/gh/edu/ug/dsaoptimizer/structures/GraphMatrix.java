@@ -126,7 +126,11 @@ public class GraphMatrix<T> {
         return dist;
     }
 
-    public java.util.List<T> shortestPath(T source, T target) {
+    /**
+     * Returns {@code Object[]} rather than {@code T[]} for the same
+     * type-erasure reason as {@link DoublyLinkedList#toArray()}.
+     */
+    public Object[] shortestPath(T source, T target) {
         if (source == null || target == null) throw new NullPointerException("nodes cannot be null");
         if (!indexMap.containsKey(source) || !indexMap.containsKey(target)) throw new IllegalArgumentException("source/target not in graph");
 
@@ -171,9 +175,8 @@ public class GraphMatrix<T> {
             cur = pred.get(cur);
         }
 
-        java.util.List<T> path = new java.util.ArrayList<>();
-        while (!dq.isEmpty()) path.add(dq.removeFirst());
-        if (path.isEmpty() || !path.get(0).equals(source)) return null;
+        Object[] path = dq.toArray();
+        if (path.length == 0 || !path[0].equals(source)) return null;
         return path;
     }
 

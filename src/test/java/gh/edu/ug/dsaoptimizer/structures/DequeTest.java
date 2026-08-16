@@ -35,4 +35,13 @@ class DequeTest {
         assertThrows(NullPointerException.class, () -> d.addFirst(null));
         assertThrows(NullPointerException.class, () -> d.addLast(null));
     }
+
+    @Test
+    void testToArrayReturnsElementsFrontToBack() {
+        Deque<String> d = new Deque<>();
+        d.addLast("B");
+        d.addLast("C");
+        d.addFirst("A");
+        assertArrayEquals(new String[]{"A", "B", "C"}, d.toArray());
+    }
 }

@@ -46,4 +46,9 @@ public class Deque<T> {
     public void clear() {
         list.clear();
     }
+
+    /** Returns all elements from front to back as a plain array. */
+    public Object[] toArray() {
+        return list.toArray();
+    }
 }
