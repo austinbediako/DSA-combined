@@ -1,9 +1,10 @@
 package gh.edu.ug.dsaoptimizer.structures;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Directed, weighted graph using adjacency lists.
+ * Directed, weighted graph using adjacency lists backed by custom HashTable.
  * - Generic node type T (must implement equals/hashCode reasonably).
  * - Disallows null nodes and null edges.
  * - Edge weights must be non-negative (Dijkstra requirement).
@@ -11,11 +12,11 @@ import java.util.*;
  * Provides Dijkstra shortest-path algorithm (non-negative weights).
  */
 public class Graph<T> {
-    private final Map<T, Map<T, Double>> adj = new HashMap<>();
+    private final HashTable<T, HashTable<T, Double>> adj = new HashTable<>();
 
     public void addNode(T node) {
         if (node == null) throw new NullPointerException("node cannot be null");
-        adj.putIfAbsent(node, new HashMap<>());
+        if (!adj.containsKey(node)) adj.put(node, new HashTable<>());
     }
 
     public boolean hasNode(T node) {
@@ -31,24 +32,25 @@ public class Graph<T> {
         if (weight < 0) throw new IllegalArgumentException("edge weight must be non-negative");
         addNode(from);
         addNode(to);
-        adj.get(from).put(to, weight);
+        HashTable<T, Double> edges = adj.get(from);
+        edges.put(to, weight);
     }
 
     public boolean hasEdge(T from, T to) {
         if (from == null || to == null) throw new NullPointerException("nodes cannot be null");
-        Map<T, Double> edges = adj.get(from);
+        HashTable<T, Double> edges = adj.get(from);
         return edges != null && edges.containsKey(to);
     }
 
-    public Map<T, Double> neighbors(T node) {
+    public HashTable<T, Double> neighbors(T node) {
         if (node == null) throw new NullPointerException("node cannot be null");
-        Map<T, Double> map = adj.get(node);
-        return map == null ? Collections.emptyMap() : Collections.unmodifiableMap(map);
+        HashTable<T, Double> map = adj.get(node);
+        return map == null ? new HashTable<>() : map;
     }
 
     public void removeEdge(T from, T to) {
         if (from == null || to == null) throw new NullPointerException("nodes cannot be null");
-        Map<T, Double> edges = adj.get(from);
+        HashTable<T, Double> edges = adj.get(from);
         if (edges != null) edges.remove(to);
     }
 
@@ -57,54 +59,50 @@ public class Graph<T> {
         if (!adj.containsKey(node)) return;
         adj.remove(node);
         // remove incoming edges
-        for (Map<T, Double> edges : adj.values()) {
-            edges.remove(node);
-        }
+        adj.forEach((k, edges) -> {
+            if (edges != null) edges.remove(node);
+        });
     }
 
     /**
      * Dijkstra's algorithm from source. Returns a map of distances (Double.POSITIVE_INFINITY if unreachable).
-     * Also returns internally the predecessor map which can be used to reconstruct paths via shortestPath().
      */
-    public Map<T, Double> dijkstra(T source) {
+    public HashTable<T, Double> dijkstra(T source) {
         if (source == null) throw new NullPointerException("source cannot be null");
         if (!adj.containsKey(source)) throw new IllegalArgumentException("source node not found in graph");
 
-        // distances
-        Map<T, Double> dist = new HashMap<>();
-        Map<T, T> pred = new HashMap<>();
-        for (T node : adj.keySet()) dist.put(node, Double.POSITIVE_INFINITY);
+        final double INF = Double.POSITIVE_INFINITY;
+        HashTable<T, Double> dist = new HashTable<>();
+        HashTable<T, T> pred = new HashTable<>();
+
+        // initialize distances
+        adj.forEach((node, edges) -> dist.put(node, INF));
         dist.put(source, 0.0);
 
         // min-heap using PriorityQueueHeap with comparator on distances
-        PriorityQueueHeap<Entry<T>> pq = new PriorityQueueHeap<>(Comparator.comparingDouble(e -> e.distance));
-        pq.offer(new Entry<>(source, 0.0));
+        PriorityQueueHeap<QueueEntry<T>> pq = new PriorityQueueHeap<>( (a, b) -> Double.compare(a.distance, b.distance) );
+        pq.offer(new QueueEntry<>(source, 0.0));
 
         while (!pq.isEmpty()) {
-            Entry<T> e = pq.poll();
+            QueueEntry<T> e = pq.poll();
             T u = e.node;
             double d = e.distance;
-            // stale entry check
-            if (d > dist.get(u)) continue;
+            Double curDist = dist.get(u);
+            if (curDist == null) continue;
+            if (d > curDist) continue; // stale
 
-            Map<T, Double> neighbors = adj.get(u);
+            HashTable<T, Double> neighbors = adj.get(u);
             if (neighbors == null) continue;
-            for (Map.Entry<T, Double> nbr : neighbors.entrySet()) {
-                T v = nbr.getKey();
-                double w = nbr.getValue();
+            neighbors.forEach((v, w) -> {
                 double alt = d + w;
-                if (alt < dist.get(v)) {
+                Double dv = dist.get(v);
+                if (dv == null || alt < dv) {
                     dist.put(v, alt);
                     pred.put(v, u);
-                    pq.offer(new Entry<>(v, alt));
+                    pq.offer(new QueueEntry<>(v, alt));
                 }
-            }
+            });
         }
-
-        // store predecessor map by attaching to a special unmodifiable map in distances? Instead,
-        // expose a path reconstruction method that calls dijkstra again to rebuild predecessors.
-        // To avoid re-running dijkstra multiple times, provide a helper that returns both maps.
-        // For simplicity, we return distances; shortestPath() will run a separate Dijkstra internally to get preds.
 
         return dist;
     }
@@ -117,54 +115,59 @@ public class Graph<T> {
         if (source == null || target == null) throw new NullPointerException("nodes cannot be null");
         if (!adj.containsKey(source) || !adj.containsKey(target)) throw new IllegalArgumentException("source/target not in graph");
 
-        // run Dijkstra but capture predecessors
-        Map<T, Double> dist = new HashMap<>();
-        Map<T, T> pred = new HashMap<>();
-        for (T node : adj.keySet()) dist.put(node, Double.POSITIVE_INFINITY);
+        final double INF = Double.POSITIVE_INFINITY;
+        HashTable<T, Double> dist = new HashTable<>();
+        HashTable<T, T> pred = new HashTable<>();
+
+        adj.forEach((node, edges) -> dist.put(node, INF));
         dist.put(source, 0.0);
 
-        PriorityQueueHeap<Entry<T>> pq = new PriorityQueueHeap<>(Comparator.comparingDouble(e -> e.distance));
-        pq.offer(new Entry<>(source, 0.0));
+        PriorityQueueHeap<QueueEntry<T>> pq = new PriorityQueueHeap<>((a, b) -> Double.compare(a.distance, b.distance));
+        pq.offer(new QueueEntry<>(source, 0.0));
 
         while (!pq.isEmpty()) {
-            Entry<T> e = pq.poll();
+            QueueEntry<T> e = pq.poll();
             T u = e.node;
             double d = e.distance;
-            if (d > dist.get(u)) continue;
-            if (u.equals(target)) break; // early exit
+            Double curDist = dist.get(u);
+            if (curDist == null || d > curDist) continue;
+            if (u.equals(target)) break;
 
-            Map<T, Double> neighbors = adj.get(u);
+            HashTable<T, Double> neighbors = adj.get(u);
             if (neighbors == null) continue;
-            for (Map.Entry<T, Double> nbr : neighbors.entrySet()) {
-                T v = nbr.getKey();
-                double w = nbr.getValue();
+            neighbors.forEach((v, w) -> {
                 double alt = d + w;
-                if (alt < dist.get(v)) {
+                Double dv = dist.get(v);
+                if (dv == null || alt < dv) {
                     dist.put(v, alt);
                     pred.put(v, u);
-                    pq.offer(new Entry<>(v, alt));
+                    pq.offer(new QueueEntry<>(v, alt));
                 }
-            }
+            });
         }
 
-        if (dist.get(target).isInfinite()) return null;
+        Double tdist = dist.get(target);
+        if (tdist == null || tdist.isInfinite()) return null;
 
-        LinkedList<T> path = new LinkedList<>();
+        Deque<T> dq = new Deque<>();
         T cur = target;
         while (cur != null) {
-            path.addFirst(cur);
+            dq.addFirst(cur);
             cur = pred.get(cur);
         }
-        // ensure path starts with source
-        if (!path.isEmpty() && !path.getFirst().equals(source)) return null;
+
+        // convert deque to list
+        List<T> path = new ArrayList<>();
+        while (!dq.isEmpty()) path.add(dq.removeFirst());
+        if (path.isEmpty() || !path.get(0).equals(source)) return null;
         return path;
     }
 
-    private static final class Entry<T> {
+    private static final class QueueEntry<T> {
         final T node;
         final double distance;
 
-        Entry(T node, double distance) {
+        QueueEntry(T node, double distance) {
             this.node = node;
             this.distance = distance;
         }

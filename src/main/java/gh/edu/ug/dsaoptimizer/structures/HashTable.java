@@ -6,6 +6,10 @@ package gh.edu.ug.dsaoptimizer.structures;
  * - Resizes when load factor exceeds 0.75.
  */
 public class HashTable<K, V> {
+    public interface EntryConsumer<K, V> {
+        void accept(K key, V value);
+    }
+
     private static class Node<K, V> {
         final K key;
         V value;
@@ -114,6 +118,20 @@ public class HashTable<K, V> {
             Node<K, V> cur = old[i];
             while (cur != null) {
                 put(cur.key, cur.value);
+                cur = cur.next;
+            }
+        }
+    }
+
+    /**
+     * Iterate all entries in the hash table in bucket order.
+     */
+    public void forEach(EntryConsumer<K, V> consumer) {
+        if (consumer == null) throw new NullPointerException("consumer cannot be null");
+        for (int i = 0; i < capacity; i++) {
+            Node<K, V> cur = buckets[i];
+            while (cur != null) {
+                consumer.accept(cur.key, cur.value);
                 cur = cur.next;
             }
         }

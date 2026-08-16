@@ -3,7 +3,6 @@ package gh.edu.ug.dsaoptimizer.structures;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,7 +17,7 @@ class GraphTest {
         g.addEdge("B", "D", 5);
         g.addEdge("C", "D", 1);
 
-        Map<String, Double> dist = g.dijkstra("A");
+        HashTable<String, Double> dist = g.dijkstra("A");
         assertEquals(0.0, dist.get("A"));
         assertEquals(1.0, dist.get("B"));
         assertEquals(3.0, dist.get("C"));
@@ -37,7 +36,7 @@ class GraphTest {
         g.addNode(3);
         g.addEdge(1, 2, 1);
         // 3 is isolated
-        Map<Integer, Double> dist = g.dijkstra(1);
+        HashTable<Integer, Double> dist = g.dijkstra(1);
         assertEquals(Double.POSITIVE_INFINITY, dist.get(3));
         assertNull(g.shortestPath(1, 3));
 
@@ -55,7 +54,7 @@ class GraphTest {
         assertTrue(g.hasNode("Y"));
         assertTrue(g.hasEdge("X", "Y"));
         assertFalse(g.hasEdge("Y", "X"));
-        Map<String, Double> nbrs = g.neighbors("X");
+        HashTable<String, Double> nbrs = g.neighbors("X");
         assertEquals(1, nbrs.size());
         assertEquals(2.5, nbrs.get("Y"));
         g.removeEdge("X", "Y");
