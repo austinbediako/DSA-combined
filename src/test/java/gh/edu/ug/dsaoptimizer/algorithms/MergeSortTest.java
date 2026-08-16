@@ -83,11 +83,15 @@ public class MergeSortTest {
     }
 
     @Test
-    @DisplayName("Invalid Input Case: Null array or null comparator does not throw exception")
-    public void testNullInput() {
-        assertDoesNotThrow(() -> MergeSort.sort(null, intComparator));
-        
+    @DisplayName("Invalid Input Case: Null array throws IllegalArgumentException")
+    public void testNullArrayThrows() {
+        assertThrows(IllegalArgumentException.class, () -> MergeSort.sort(null, intComparator));
+    }
+
+    @Test
+    @DisplayName("Invalid Input Case: Null comparator throws IllegalArgumentException")
+    public void testNullComparatorThrows() {
         Integer[] input = { 3, 1, 2 };
-        assertDoesNotThrow(() -> MergeSort.sort(input, null));
+        assertThrows(IllegalArgumentException.class, () -> MergeSort.sort(input, null));
     }
 }
