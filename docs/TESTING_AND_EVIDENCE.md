@@ -46,7 +46,7 @@ Dijkstra, Kruskal OR Prim, and one DP algorithm.
 
 | # | Algorithm | Trace table location | Done? |
 |---|---|---|---|
-| 1 | Binary search | `evidence/trace-tables/` | ☐ |
+| 1 | Binary search | `evidence/trace-tables/binary-search-trace.md` | Done |
 | 2 | Insertion sort | `evidence/trace-tables/` | ☐ |
 | 3 | Merge sort or quicksort | `evidence/trace-tables/` | ☐ |
 | 4 | Dijkstra | `evidence/trace-tables/` | ☐ |
