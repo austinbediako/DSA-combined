@@ -21,6 +21,7 @@ public class ServiceRequest {
     private final Instant timeSubmitted;
     private final Instant deadline; // nullable
     private final Status status;
+    private final String assignedResourceId; // nullable
 
     public ServiceRequest(String requestId,
                            int sourceLocationId,
@@ -30,6 +31,19 @@ public class ServiceRequest {
                            Instant timeSubmitted,
                            Instant deadline,
                            Status status) {
+        this(requestId, sourceLocationId, destinationLocationId, category,
+                urgency, timeSubmitted, deadline, status, null);
+    }
+
+    public ServiceRequest(String requestId,
+                           int sourceLocationId,
+                           int destinationLocationId,
+                           String category,
+                           Urgency urgency,
+                           Instant timeSubmitted,
+                           Instant deadline,
+                           Status status,
+                           String assignedResourceId) {
         this.requestId = Objects.requireNonNull(requestId, "requestId");
         this.sourceLocationId = sourceLocationId;
         this.destinationLocationId = destinationLocationId;
@@ -38,6 +52,7 @@ public class ServiceRequest {
         this.timeSubmitted = Objects.requireNonNull(timeSubmitted, "timeSubmitted");
         this.deadline = deadline; // may legitimately be null
         this.status = Objects.requireNonNull(status, "status");
+        this.assignedResourceId = assignedResourceId; // may legitimately be null
     }
 
     public String getRequestId() {
@@ -70,6 +85,10 @@ public class ServiceRequest {
 
     public Status getStatus() {
         return status;
+    }
+
+    public String getAssignedResourceId() {
+        return assignedResourceId;
     }
 
     @Override
