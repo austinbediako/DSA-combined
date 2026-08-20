@@ -88,11 +88,11 @@ public class RedBlackTreeMap<K, V> {
         root.color = BLACK;
     }
 
-    private static <K,V> Node parentOf(Node n) { return n == null ? null : n.parent; }
-    private static <K,V> Node leftOf(Node n) { return n == null ? null : n.left; }
-    private static <K,V> Node rightOf(Node n) { return n == null ? null : n.right; }
-    private static <K,V> boolean colorOf(Node n) { return n == null ? BLACK : n.color; }
-    private static <K,V> void setColor(Node n, boolean c) { if (n != null) n.color = c; }
+    private Node parentOf(Node n) { return n == null ? null : n.parent; }
+    private Node leftOf(Node n) { return n == null ? null : n.left; }
+    private Node rightOf(Node n) { return n == null ? null : n.right; }
+    private boolean colorOf(Node n) { return n == null ? BLACK : n.color; }
+    private void setColor(Node n, boolean c) { if (n != null) n.color = c; }
 
     public int size() { return size; }
 }

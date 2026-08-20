@@ -1,8 +1,6 @@
 package gh.edu.ug.dsaoptimizer.structures;
 
 import java.util.Comparator;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Simple BST-backed map (no balancing). Supports comparator or Comparable keys.
@@ -60,16 +58,25 @@ public class BSTMap<K, V> {
 
     public int size() { return size; }
 
-    public List<K> keysInOrder() {
-        ArrayList<K> out = new ArrayList<>();
-        inorder(root, out);
-        return out;
+    /**
+     * Returns all keys in ascending order.
+     *
+     * <p>Returns {@code Object[]} rather than {@code K[]}: Java cannot
+     * safely create a generic array at runtime without a {@code Class<K>}
+     * token, so casting an {@code Object[]} to {@code K[]} here would
+     * compile but throw {@code ClassCastException} at the caller's
+     * first typed array assignment.
+     */
+    public Object[] keysInOrder() {
+        Object[] result = new Object[size];
+        inorder(root, result, new int[]{0});
+        return result;
     }
 
-    private void inorder(Node n, List<K> out) {
+    private void inorder(Node n, Object[] result, int[] idx) {
         if (n == null) return;
-        inorder(n.left, out);
-        out.add(n.key);
-        inorder(n.right, out);
+        inorder(n.left, result, idx);
+        result[idx[0]++] = n.key;
+        inorder(n.right, result, idx);
     }
 }
