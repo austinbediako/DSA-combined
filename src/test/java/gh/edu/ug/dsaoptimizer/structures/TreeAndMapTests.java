@@ -2,8 +2,6 @@ package gh.edu.ug.dsaoptimizer.structures;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class TreeAndMapTests {
@@ -14,8 +12,8 @@ class TreeAndMapTests {
         assertNull(m.put(3, "three"));
         assertNull(m.put(7, "seven"));
         assertEquals("five", m.get(5));
-        List<Integer> keys = m.keysInOrder();
-        assertArrayEquals(new Integer[]{3,5,7}, keys.toArray(new Integer[0]));
+        Object[] keys = m.keysInOrder();
+        assertArrayEquals(new Integer[]{3,5,7}, keys);
     }
 
     @Test
@@ -33,8 +31,8 @@ class TreeAndMapTests {
         b.put(10,"x"); b.put(20,"y"); b.put(5,"a"); b.put(6,"b"); b.put(12,"c");
         assertEquals("x", b.get(10));
         assertNull(b.get(999));
-        List<Integer> keys = b.keysInOrder();
-        assertTrue(keys.contains(5)); assertTrue(keys.contains(20));
+        Object[] keys = b.keysInOrder();
+        assertTrue(contains(keys, 5)); assertTrue(contains(keys, 20));
     }
 
     @Test
@@ -50,5 +48,12 @@ class TreeAndMapTests {
         TreeMapWrapper<Integer,String> tm = new TreeMapWrapper<>();
         assertNull(tm.put(1,"one")); assertEquals("one", tm.get(1));
         TreeSetWrapper<Integer> ts = new TreeSetWrapper<>(); assertTrue(ts.add(2)); assertTrue(ts.contains(2));
+    }
+
+    private static boolean contains(Object[] array, Object value) {
+        for (Object o : array) {
+            if (o.equals(value)) return true;
+        }
+        return false;
     }
 }
