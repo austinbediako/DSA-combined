@@ -21,6 +21,18 @@ public class Graph<T> {
         return adj.containsKey(node);
     }
 
+    public int nodeCount() {
+        return adj.size();
+    }
+
+    /** Returns all nodes in the graph, in no particular order. */
+    public Object[] nodes() {
+        Object[] result = new Object[adj.size()];
+        int[] idx = {0};
+        adj.forEach((node, edges) -> result[idx[0]++] = node);
+        return result;
+    }
+
     /**
      * Add a directed edge from -> to with given non-negative weight.
      */
