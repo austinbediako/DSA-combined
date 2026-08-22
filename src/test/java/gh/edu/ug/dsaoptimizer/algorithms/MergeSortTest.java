@@ -94,4 +94,18 @@ public class MergeSortTest {
         Integer[] input = { 3, 1, 2 };
         assertThrows(IllegalArgumentException.class, () -> MergeSort.sort(input, null));
     }
+
+    @Test
+    @DisplayName("Primitive int overload sorts correctly")
+    public void testPrimitiveIntOverload() {
+        int[] input = { 5, 3, 8, 1, 9 };
+        MergeSort.sort(input);
+        assertArrayEquals(new int[]{1, 3, 5, 8, 9}, input);
+    }
+
+    @Test
+    @DisplayName("Invalid Input Case: null int[] throws IllegalArgumentException")
+    public void testNullIntArrayThrows() {
+        assertThrows(IllegalArgumentException.class, () -> MergeSort.sort((int[]) null));
+    }
 }
