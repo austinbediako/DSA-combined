@@ -25,6 +25,7 @@ public class HashTable<K, V> {
     private Node<K, V>[] buckets;
     private int size = 0;
     private int capacity;
+    private boolean autoResize = true;
     private static final double LOAD_FACTOR = 0.75;
     private static final int DEFAULT_CAPACITY = 16;
 
@@ -34,8 +35,44 @@ public class HashTable<K, V> {
         this.buckets = (Node<K, V>[]) new Node[capacity];
     }
 
+    /** Starts with a given table size, for experiments on how initial capacity affects collisions. */
+    @SuppressWarnings("unchecked")
+    public HashTable(int initialCapacity) {
+        if (initialCapacity <= 0) throw new IllegalArgumentException("initialCapacity must be > 0");
+        this.capacity = initialCapacity;
+        this.buckets = (Node<K, V>[]) new Node[capacity];
+    }
+
     public int size() {
         return size;
+    }
+
+    public int capacity() {
+        return capacity;
+    }
+
+    public double loadFactor() {
+        return (double) size / capacity;
+    }
+
+    /**
+     * Number of entries that are NOT the first entry in their bucket
+     * (i.e. entries that collided with something already there) --
+     * used as the collision metric for the hash-table load-factor
+     * performance experiment.
+     */
+    public int collisionCount() {
+        int collisions = 0;
+        for (int i = 0; i < capacity; i++) {
+            Node<K, V> cur = buckets[i];
+            if (cur == null) continue;
+            cur = cur.next; // first entry in the bucket isn't a collision
+            while (cur != null) {
+                collisions++;
+                cur = cur.next;
+            }
+        }
+        return collisions;
     }
 
     public boolean isEmpty() {
@@ -57,8 +94,18 @@ public class HashTable<K, V> {
         }
         buckets[idx] = new Node<>(key, value, buckets[idx]);
         size++;
-        if (size > capacity * LOAD_FACTOR) resize(capacity * 2);
+        if (autoResize && size > capacity * LOAD_FACTOR) resize(capacity * 2);
         return null;
+    }
+
+    /**
+     * Disables the automatic resize-at-0.75-load-factor behaviour, for
+     * the hash-table load-factor performance experiment, which needs to
+     * observe collision behaviour at load factors the table would
+     * otherwise grow itself out of.
+     */
+    public void setAutoResize(boolean autoResize) {
+        this.autoResize = autoResize;
     }
 
     public V get(K key) {

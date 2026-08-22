@@ -95,4 +95,14 @@ public class RedBlackTreeMap<K, V> {
     private void setColor(Node n, boolean c) { if (n != null) n.color = c; }
 
     public int size() { return size; }
+
+    /** Tree height; an empty tree has height -1, a single node has height 0. */
+    public int height() {
+        return height(root);
+    }
+
+    private int height(Node n) {
+        if (n == null) return -1;
+        return 1 + Math.max(height(n.left), height(n.right));
+    }
 }

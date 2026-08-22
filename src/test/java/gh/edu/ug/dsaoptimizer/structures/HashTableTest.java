@@ -47,4 +47,40 @@ class HashTableTest {
         assertThrows(NullPointerException.class, () -> ht.get(null));
         assertThrows(NullPointerException.class, () -> ht.remove(null));
     }
+
+    @Test
+    void testCustomInitialCapacity() {
+        HashTable<Integer, Integer> ht = new HashTable<>(4);
+        assertEquals(4, ht.capacity());
+        assertThrows(IllegalArgumentException.class, () -> new HashTable<Integer, Integer>(0));
+    }
+
+    @Test
+    void testLoadFactorReflectsSizeOverCapacity() {
+        HashTable<Integer, Integer> ht = new HashTable<>(10);
+        ht.setAutoResize(false);
+        for (int i = 0; i < 5; i++) ht.put(i, i);
+        assertEquals(0.5, ht.loadFactor(), 0.0001);
+    }
+
+    @Test
+    void testCollisionCountIncreasesAsTableFillsUpWithAutoResizeDisabled() {
+        HashTable<Integer, Integer> ht = new HashTable<>(4);
+        ht.setAutoResize(false);
+        assertEquals(0, ht.collisionCount());
+        // Insert far more keys than buckets, forced to collide since resize is off.
+        for (int i = 0; i < 20; i++) ht.put(i, i);
+        assertEquals(4, ht.capacity()); // never resized
+        assertTrue(ht.collisionCount() > 0);
+        assertEquals(20, ht.size());
+        // Every key must still be retrievable despite the collisions.
+        for (int i = 0; i < 20; i++) assertEquals(i, ht.get(i));
+    }
+
+    @Test
+    void testAutoResizeStillWorksByDefault() {
+        HashTable<Integer, Integer> ht = new HashTable<>(4);
+        for (int i = 0; i < 20; i++) ht.put(i, i);
+        assertTrue(ht.capacity() > 4); // grew automatically
+    }
 }

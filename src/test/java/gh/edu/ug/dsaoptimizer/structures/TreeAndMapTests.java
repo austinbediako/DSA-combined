@@ -50,6 +50,22 @@ class TreeAndMapTests {
         TreeSetWrapper<Integer> ts = new TreeSetWrapper<>(); assertTrue(ts.add(2)); assertTrue(ts.contains(2));
     }
 
+    @Test
+    void bstDegeneratesToLinearHeightOnSortedInsertUnlikeRedBlackTree() {
+        BSTMap<Integer, String> bst = new BSTMap<>();
+        RedBlackTreeMap<Integer, String> rbt = new RedBlackTreeMap<>();
+        int n = 50;
+        for (int i = 1; i <= n; i++) {
+            bst.put(i, "v" + i);
+            rbt.put(i, "v" + i);
+        }
+
+        assertEquals(n - 1, bst.height()); // fully degenerate chain
+        int maxBalancedHeight = (int) (2 * (Math.log(n + 1) / Math.log(2)));
+        assertTrue(rbt.height() <= maxBalancedHeight,
+                "red-black height " + rbt.height() + " exceeds balanced bound " + maxBalancedHeight);
+    }
+
     private static boolean contains(Object[] array, Object value) {
         for (Object o : array) {
             if (o.equals(value)) return true;
