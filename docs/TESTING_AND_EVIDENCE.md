@@ -17,27 +17,26 @@ and invalid-input cases (brief §8.3).
 
 | Area | Tests written | Notes |
 |---|---|---|
-| Dynamic array | 0 | |
-| Linked list | 0 | |
-| Stack | 0 | |
-| Queue / circular queue | 0 | |
-| Deque | 0 | |
-| Priority queue / heap | 0 | |
-| BST | 0 | |
-| Red-black tree | 0 | |
-| B-tree | 0 | |
-| Hash table | 0 | |
-| Set / map | 0 | |
-| Disjoint set | 0 | |
-| Graph (adjacency list/matrix) | 0 | |
-| Search (linear/binary) | 11 | linear search done (normal/boundary/duplicate/invalid + ServiceRequest key search); binary search still pending |
-| Sort (selection/insertion/merge/quick) | 13 | selection sort done (normal/boundary/duplicate/invalid + ServiceRequest comparator sort incl. tiebreak); insertion/merge/quick still pending |
-| Greedy algorithm | 0 | |
-| Dynamic programming | 0 | |
-| BFS / DFS | 0 | |
-| Dijkstra | 0 | |
-| Prim / Kruskal | 0 | |
-| **Total** | **24 / 40** | |
+| Dynamic array | 6 | `DynamicArrayTest` |
+| Linked list | 8 | `DoublyLinkedListTest` |
+| Stack | 3 | `StackTest` |
+| Queue / circular queue | 7 | `QueueTest` (3) + `CircularQueueTest` (4) |
+| Deque | 4 | `DequeTest` |
+| Priority queue / heap | 4 | `PriorityQueueHeapTest` |
+| BST / red-black tree / B-tree / set / map | 5 | `TreeAndMapTests` (BSTMap, RedBlackTreeMap, BTreeMap, HashMapWrapper/HashSetWrapper, TreeMapWrapper/TreeSetWrapper -- one test per structure) |
+| Hash table | 4 | `HashTableTest` |
+| Disjoint set | 1 | `DisjointSetTest` |
+| Graph (adjacency list/matrix) | 5 | `GraphTest` (3) + `GraphMatrixTest` (2) |
+| Search (linear/binary) | 23 | `LinearSearchTest` (11) + `BinarySearchTest` (12, includes the unsorted-input counterexample) |
+| Sort (selection/insertion/merge/quick) | 43 | `SelectionSortTest` (12) + `InsertionSortTest` (10) + `MergeSortTest` (11) + `QuickSortTest` (10) |
+| Greedy algorithm | 5 | `GreedyAssignmentTest` (includes the required counterexample) |
+| Dynamic programming | 8 | `KnapsackTest` |
+| BFS / DFS | 11 | `BFSTest` (5) + `DFSTest` (6) |
+| Dijkstra | -- | covered within `GraphTest`/`GraphMatrixTest`, no separate file |
+| Prim / Kruskal | 9 | `PrimTest` (4) + `KruskalTest` (5) |
+| Persistence (M2 -- database load/save) | 3 | `PersistenceIntegrationTest`, loads the real schema + real seed CSVs end-to-end |
+| Service layer (M5 -- scheduling/routing/assignment) | 11 | `SchedulingEngineTest` (7) + `RouteServiceTest` (3) + `ResourceAssignmentServiceTest` (1) |
+| **Total** | **160 / 40** | |
 
 ## Trace tables (target: 6, brief §10)
 
@@ -47,26 +46,26 @@ Dijkstra, Kruskal OR Prim, and one DP algorithm.
 | # | Algorithm | Trace table location | Done? |
 |---|---|---|---|
 | 1 | Binary search | `evidence/trace-tables/binary-search-trace.md` | Done |
-| 2 | Insertion sort | `evidence/trace-tables/` | ☐ |
+| 2 | Insertion sort | `evidence/trace-tables/insertion-sort-trace.md` | Done |
 | 3 | Merge sort or quicksort | `evidence/trace-tables/merge-sort-trace.md` | Done |
-| 4 | Dijkstra | `evidence/trace-tables/` | ☐ |
-| 5 | Kruskal or Prim | `evidence/trace-tables/` | ☐ |
-| 6 | Dynamic programming | `evidence/trace-tables/` | ☐ |
+| 4 | Dijkstra | `evidence/trace-tables/dijkstra-trace.md` | Done |
+| 5 | Kruskal or Prim | `evidence/trace-tables/kruskal-trace.md` | Done |
+| 6 | Dynamic programming | `evidence/trace-tables/knapsack-dp-trace.md` | Done |
 
 ## Proof sketches (target: 3, brief §10)
 
 | # | Type | Algorithm | Done? |
 |---|---|---|---|
-| 1 | Loop invariant for search/sort | | ☐ |
-| 2 | Induction/recursion proof | | ☐ |
-| 3 | Greedy or DP correctness idea | | ☐ |
+| 1 | Loop invariant for search/sort | Binary search | Done -- `evidence/proof-sketches.md` |
+| 2 | Induction/recursion proof | Merge sort | Done -- `evidence/proof-sketches.md` |
+| 3 | Greedy or DP correctness idea | Kruskal (cut property) | Done -- `evidence/proof-sketches.md` |
 
 ## Counterexamples (target: 2, brief §10)
 
 | # | Type | Description | Done? |
 |---|---|---|---|
-| 1 | Greedy failure | Show a case where the chosen greedy strategy gives a suboptimal result | ☐ |
-| 2 | Invalid precondition | e.g. binary search on unsorted input | ☐ |
+| 1 | Greedy failure | `GreedyAssignmentTest.greedyFailsToFindTheOptimalAssignment` -- cost 101 vs true optimum 4 | Done |
+| 2 | Invalid precondition | `BinarySearchTest.unsortedInputViolatesPreconditionAndGivesWrongAnswer` | Done |
 
 ## Required edge cases (brief §10)
 
