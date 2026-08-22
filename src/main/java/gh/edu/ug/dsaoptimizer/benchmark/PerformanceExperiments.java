@@ -1,9 +1,11 @@
 package gh.edu.ug.dsaoptimizer.benchmark;
 
 import gh.edu.ug.dsaoptimizer.algorithms.BFS;
+import gh.edu.ug.dsaoptimizer.algorithms.BinarySearch;
 import gh.edu.ug.dsaoptimizer.algorithms.DFS;
 import gh.edu.ug.dsaoptimizer.algorithms.InsertionSort;
 import gh.edu.ug.dsaoptimizer.algorithms.Kruskal;
+import gh.edu.ug.dsaoptimizer.algorithms.LinearSearch;
 import gh.edu.ug.dsaoptimizer.algorithms.MergeSort;
 import gh.edu.ug.dsaoptimizer.algorithms.QuickSort;
 import gh.edu.ug.dsaoptimizer.algorithms.SelectionSort;
@@ -22,11 +24,9 @@ import java.time.Instant;
 import java.util.Random;
 
 /**
- * Implements the remaining required performance experiments (brief
- * section 9): sorting comparison, hash table load factor, BST vs
- * balanced tree, heap priority dispatch, and graph algorithms. (The
- * search comparison experiment was already delivered separately --
- * see evidence/benchmarks/search_comparison.csv.)
+ * Implements all 6 required performance experiments (brief section 9):
+ * search comparison, sorting comparison, hash table load factor, BST
+ * vs balanced tree, heap priority dispatch, and graph algorithms.
  *
  * <p>Every experiment runs each measurement 3 times and averages, per
  * the brief's rule, and writes both a raw CSV (evidence/benchmarks/)
@@ -42,7 +42,46 @@ public final class PerformanceExperiments {
         // utility class -- no instances
     }
 
-    // ---- 1. Sorting comparison ----
+    // ---- 1. Search comparison ----
+
+    public static void runSearchComparison(int[] sizes, Path csvPath, Path pngPath) throws IOException {
+        double[] linearAverages = new double[sizes.length];
+        double[] binaryAverages = new double[sizes.length];
+
+        try (BufferedWriter writer = Files.newBufferedWriter(csvPath)) {
+            writer.write("algorithm_name,input_size,run_number,time_ns,memory_kb,date_run");
+            writer.newLine();
+
+            for (int s = 0; s < sizes.length; s++) {
+                int n = sizes[s];
+                int[] sorted = randomArray(n);
+                java.util.Arrays.sort(sorted); // fixture setup only, not assessed search/sort logic
+                int target = sorted[n / 2];
+                double linearTotal = 0;
+                double binaryTotal = 0;
+
+                for (int run = 1; run <= RUNS_PER_SIZE; run++) {
+                    long linearTime = timeSearch(() -> LinearSearch.search(sorted, target));
+                    long binaryTime = timeSearch(() -> BinarySearch.search(sorted, target));
+
+                    writeRow(writer, "linear_search", n, run, linearTime);
+                    writeRow(writer, "binary_search", n, run, binaryTime);
+                    linearTotal += linearTime;
+                    binaryTotal += binaryTime;
+                }
+                linearAverages[s] = linearTotal / RUNS_PER_SIZE;
+                binaryAverages[s] = binaryTotal / RUNS_PER_SIZE;
+            }
+        }
+
+        LineChart chart = new LineChart("Linear vs Binary Search", "input size (n)", "average time (ns)");
+        double[] xs = toDoubleArray(sizes);
+        chart.addSeries("linear_search", xs, linearAverages);
+        chart.addSeries("binary_search", xs, binaryAverages);
+        chart.saveTo(pngPath);
+    }
+
+    // ---- 2. Sorting comparison ----
 
     public static void runSortingComparison(int[] sizes, Path csvPath, Path pngPath) throws IOException {
         double[][] averagesByAlgorithm = new double[4][sizes.length];
@@ -99,7 +138,7 @@ public final class PerformanceExperiments {
         return System.nanoTime() - start;
     }
 
-    // ---- 2. Hash table load factor ----
+    // ---- 3. Hash table load factor ----
 
     public static void runHashLoadFactor(int[] sizes, Path csvPath, Path pngPath) throws IOException {
         double[] loadFactors = {0.5, 0.75, 1.0, 1.5, 2.0};
@@ -143,7 +182,7 @@ public final class PerformanceExperiments {
         chart.saveTo(pngPath);
     }
 
-    // ---- 3. BST vs balanced tree ----
+    // ---- 4. BST vs balanced tree ----
 
     public static void runBstVsBalancedTree(int[] sizes, Path csvPath, Path pngPath) throws IOException {
         double[] bstHeights = new double[sizes.length];
@@ -198,7 +237,7 @@ public final class PerformanceExperiments {
         return System.nanoTime() - start;
     }
 
-    // ---- 4. Heap priority dispatch ----
+    // ---- 5. Heap priority dispatch ----
 
     public static void runHeapDispatch(int[] sizes, Path csvPath, Path pngPath) throws IOException {
         double[] insertAverages = new double[sizes.length];
@@ -245,7 +284,7 @@ public final class PerformanceExperiments {
         chart.saveTo(pngPath);
     }
 
-    // ---- 5. Graph algorithms ----
+    // ---- 6. Graph algorithms ----
 
     public static void runGraphAlgorithms(int[] nodeCounts, Path csvPath, Path pngPath) throws IOException {
         double[] bfsAverages = new double[nodeCounts.length];
