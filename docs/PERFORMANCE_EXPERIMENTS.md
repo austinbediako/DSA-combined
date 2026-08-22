@@ -7,17 +7,9 @@ CSV (`evidence/benchmarks/`) and plot line graphs (`evidence/graphs/`).
 
 ## Machine specification
 
-**Experiment 1** (search comparison) ran on:
-
-| Field | Value |
-|---|---|
-| CPU | Intel(R) Core(TM) i3-10110U CPU @ 2.10GHz |
-| RAM | 7.84 GB |
-| OS | Windows 11 |
-| Java version | OpenJDK 25.0.3 Temurin |
-| Date of experiments | August 15, 2026 |
-
-**Experiments 2-6** ran on a *different* machine:
+All 6 experiments now ran on the same machine (search comparison was
+originally run separately on a Windows i3 machine -- re-run here on
+2026-08-22 to fix that mismatch and keep every number comparable):
 
 | Field | Value |
 |---|---|
@@ -26,13 +18,6 @@ CSV (`evidence/benchmarks/`) and plot line graphs (`evidence/graphs/`).
 | OS | macOS 26.5.1 |
 | Java version | OpenJDK 21.0.8 |
 | Date of experiments | August 22, 2026 |
-
-**This violates the brief's "use the same machine for all experiments"
-rule (section 9.2) and needs to be fixed before final submission** --
-either re-run experiment 1 on the M4 above, or re-run experiments 2-6
-on the Windows i3 machine, so every number in this document comes from
-one machine. Flagging honestly rather than presenting mismatched
-numbers as if they were comparable.
 
 ## Required experiments
 
@@ -47,6 +32,15 @@ numbers as if they were comparable.
 
 ## Interpretation notes (brief section 9, rule 4: explain mismatches)
 
+- **Search comparison**: at n=100, both linear and binary search show
+  a large first-run spike (hundreds of microseconds) before dropping
+  to a stable baseline for the rest of that size's runs, and staying
+  low for every larger size. Same JIT warmup effect as the graph
+  algorithms note below -- the very first invocation of a method pays
+  the cost of interpretation/compilation before the JIT optimizes it.
+  From the second run onward the expected shapes are clear: linear
+  search grows roughly linearly with n, binary search stays
+  near-constant regardless of n.
 - **Sorting comparison**: selection sort and insertion sort both show
   clear O(n²) growth (curving sharply upward), while merge sort and
   quicksort stay close to flat (O(n log n)) even at n=10,000 -- matches

@@ -18,6 +18,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class PerformanceExperimentsTest {
 
     @Test
+    void searchComparisonProducesValidCsvAndPng(@TempDir Path tempDir) throws Exception {
+        Path csv = tempDir.resolve("search.csv");
+        Path png = tempDir.resolve("search.png");
+        PerformanceExperiments.runSearchComparison(new int[]{5, 10}, csv, png);
+
+        assertTrue(Files.exists(csv));
+        assertTrue(Files.exists(png));
+        long lineCount = Files.lines(csv).count();
+        // header + 2 sizes * 3 runs * 2 algorithms
+        assertEquals(1 + 2 * 3 * 2, lineCount);
+        assertTrue(Files.size(png) > 0);
+    }
+
+    @Test
     void sortingComparisonProducesValidCsvAndPng(@TempDir Path tempDir) throws Exception {
         Path csv = tempDir.resolve("sorting.csv");
         Path png = tempDir.resolve("sorting.png");
