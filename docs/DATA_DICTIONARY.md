@@ -52,16 +52,16 @@ Per the brief (§4), minimum record counts: 50 locations, 100 roads,
 | capacity | INTEGER | Capacity (seats, staff count, load, etc.) | 45 |
 | availability_status | TEXT | AVAILABLE / BUSY / OFFLINE | "AVAILABLE" |
 
-## `algorithm_runs` (minimum 30 records)
+## `algorithm_runs` (minimum 30 records) — DONE, see `data/processed/algorithm_runs.csv`
 
-| Field | Type | Description | Example (fill in) |
+| Field | Type | Description | Example |
 |---|---|---|---|
-| run_id | INTEGER (PK) | Unique identifier | |
-| algorithm_name | TEXT | e.g. quicksort, dijkstra, kruskal | |
-| input_size | INTEGER | n for this run | |
-| time_ns | INTEGER | Measured runtime (nanoseconds) | |
-| memory_kb | INTEGER | Measured memory (nullable if not captured) | |
-| date_run | TEXT (ISO-8601) | When the experiment ran | |
+| run_id | INTEGER (PK) | Unique identifier | 1 |
+| algorithm_name | TEXT | e.g. quicksort, dijkstra, kruskal | "quick_sort" |
+| input_size | INTEGER | n for this run | 10000 |
+| time_ns | INTEGER | Measured runtime (nanoseconds) | 237041 |
+| memory_kb | INTEGER | Measured memory (nullable if not captured) | (null -- not captured) |
+| date_run | TEXT (ISO-8601) | When the experiment ran | "2026-08-22T00:53:05.457942Z" |
 
 ## Index-number-derived parameters (brief §2, requirement 3)
 
