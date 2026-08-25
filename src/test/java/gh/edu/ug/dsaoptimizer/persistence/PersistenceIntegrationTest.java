@@ -86,6 +86,15 @@ class PersistenceIntegrationTest {
     }
 
     @Test
+    void loadsAlgorithmRunsSeedCsv() throws Exception {
+        AlgorithmRunRepository runRepo = new AlgorithmRunRepository(db.getConnection());
+        runRepo.loadFromCsv(Path.of("data/processed/algorithm_runs.csv"));
+
+        DynamicArray<AlgorithmRun> runs = runRepo.findAll();
+        assertTrue(runs.size() >= 30, "expected at least 30 algorithm_runs records, got " + runs.size());
+    }
+
+    @Test
     void insertsAndReadsBackAlgorithmRunsAndAuditEvents() throws Exception {
         AlgorithmRunRepository runRepo = new AlgorithmRunRepository(db.getConnection());
         AuditEventRepository eventRepo = new AuditEventRepository(db.getConnection());

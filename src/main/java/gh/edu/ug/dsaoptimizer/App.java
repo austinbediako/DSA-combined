@@ -35,6 +35,7 @@ public class App {
                 roadRepository.loadFromCsv(Path.of("data/processed/roads.csv"));
                 resourceRepository.loadFromCsv(Path.of("data/processed/resources.csv"));
                 serviceRequestRepository.loadFromCsv(Path.of("data/processed/service_requests.csv"));
+                algorithmRunRepository.loadFromCsv(Path.of("data/processed/algorithm_runs.csv"));
                 System.out.println("Seed data loaded.");
             }
 

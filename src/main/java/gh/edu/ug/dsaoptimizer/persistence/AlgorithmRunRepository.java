@@ -3,6 +3,8 @@ package gh.edu.ug.dsaoptimizer.persistence;
 import gh.edu.ug.dsaoptimizer.model.AlgorithmRun;
 import gh.edu.ug.dsaoptimizer.structures.DynamicArray;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,6 +36,24 @@ public class AlgorithmRunRepository {
                 keys.next();
                 return keys.getInt(1);
             }
+        }
+    }
+
+    /**
+     * Parses the seed CSV (algorithm_name,input_size,time_ns,memory_kb,date_run
+     * -- no run_id column, since it's an autoincrement surrogate key
+     * assigned fresh on insert, same as the source benchmark CSVs
+     * these rows were extracted from) and inserts every row.
+     */
+    public void loadFromCsv(Path csvPath) throws IOException, SQLException {
+        for (String[] row : CsvUtil.readRows(csvPath)) {
+            // run_id,algorithm_name,input_size,time_ns,memory_kb,date_run
+            Long memKb = CsvUtil.blankToNull(row[4]) == null ? null : Long.parseLong(row[4]);
+            AlgorithmRun run = new AlgorithmRun(
+                    null, row[1], Integer.parseInt(row[2]), Long.parseLong(row[3]), memKb,
+                    Instant.parse(row[5])
+            );
+            insert(run);
         }
     }
 
