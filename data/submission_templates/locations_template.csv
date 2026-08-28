@@ -1,0 +1,51 @@
+location_id,name,area,location_type,x_coord,y_coord
+L001,Commonwealth Hall,Legon Hill,Hostel,5.6521,-0.1874
+L002,Legon Hall,Central Campus,Hostel,5.6500,-0.1880
+L003,Volta Hall,Central Campus,Hostel,5.6495,-0.1865
+L004,Akuafo Hall,Central Campus,Hostel,5.6480,-0.1885
+L005,Mensah Sarbah Hall,South Campus,Hostel,5.6450,-0.1895
+L006,Jubilee Hall,Central Campus,Hostel,5.6465,-0.1870
+L007,International Students Hostel (ISH),South Campus,Hostel,5.6440,-0.1900
+L008,Hilla Limann Hall,Diaspora,Hostel,5.6570,-0.1810
+L009,Alexander Adum Kwapong Hall,Diaspora,Hostel,5.6580,-0.1820
+L010,Jean Nelson Aka Hall,Diaspora,Hostel,5.6590,-0.1830
+L011,Elizabeth Frances Sey Hall,Diaspora,Hostel,5.6600,-0.1840
+L012,African Union Hall (Pentagon),Diaspora,Hostel,5.6585,-0.1780
+L013,Evandy Hostel,Diaspora,Hostel,5.6595,-0.1770
+L014,Bani Hostel,Diaspora,Hostel,5.6605,-0.1760
+L015,TF Hostel,North Campus,Hostel,5.6550,-0.1920
+L016,Balme Library,Central Campus,Library,5.6510,-0.1870
+L017,Jones Quartey Building (JQB),Central Campus,Lecture Hall,5.6490,-0.1850
+L018,N Block,Central Campus,Lecture Hall,5.6485,-0.1845
+L019,NN Block,Central Campus,Lecture Hall,5.6480,-0.1840
+L020,G Block,Central Campus,Lecture Hall,5.6475,-0.1845
+L021,K.A. Busia Lecture Theatre,Central Campus,Lecture Hall,5.6470,-0.1850
+L022,R.S. Amegashie Auditorium,Central Campus,Lecture Hall,5.6495,-0.1840
+L023,UG Business School,Central Campus,Lecture Hall,5.6500,-0.1835
+L024,School of Law,Central Campus,Lecture Hall,5.6485,-0.1860
+L025,Dept of Computer Science,North Campus,Lecture Hall,5.6525,-0.1890
+L026,Dept of Earth Science,North Campus,Lecture Hall,5.6530,-0.1885
+L027,Dept of Physics,North Campus,Lecture Hall,5.6535,-0.1880
+L028,Dept of Chemistry,North Campus,Lecture Hall,5.6540,-0.1875
+L029,School of Performing Arts,South Campus,Lecture Hall,5.6430,-0.1870
+L030,Great Hall,Legon Hill,Admin,5.6530,-0.1870
+L031,Cedi Conference Centre,Central Campus,Admin,5.6490,-0.1830
+L032,Noguchi Memorial Institute,South Campus,Lab,5.6410,-0.1860
+L033,University of Ghana Hospital,South Campus,Clinic,5.6390,-0.1880
+L034,UG Medical Centre (UGMC),Diaspora,Clinic,5.6620,-0.1850
+L035,Student Clinic,Central Campus,Clinic,5.6505,-0.1890
+L036,ISSER,Central Campus,Lab,5.6480,-0.1870
+L037,Institute of African Studies,South Campus,Lab,5.6440,-0.1860
+L038,WACCBIP,North Campus,Lab,5.6545,-0.1860
+L039,CERSGIS,Central Campus,Lab,5.6490,-0.1880
+L040,Main Gate Shuttle Stop,South Campus,Shuttle Stop,5.6360,-0.1880
+L041,Night Market Shuttle Stop,Central Campus,Shuttle Stop,5.6470,-0.1900
+L042,TF Shuttle Stop,North Campus,Shuttle Stop,5.6545,-0.1915
+L043,Pentagon Shuttle Stop,Diaspora,Shuttle Stop,5.6580,-0.1785
+L044,JQB Shuttle Stop,Central Campus,Shuttle Stop,5.6495,-0.1855
+L045,Central Cafeteria,Central Campus,Dining,5.6495,-0.1885
+L046,Bush Canteen,South Campus,Dining,5.6420,-0.1890
+L047,Banking Square,Central Campus,Admin,5.6485,-0.1900
+L048,Botanical Gardens,North Campus,Recreation,5.6560,-0.1850
+L049,Athletics Oval,Central Campus,Sports,5.6490,-0.1895
+L050,UG Sports Stadium,South Campus,Sports,5.6380,-0.1850

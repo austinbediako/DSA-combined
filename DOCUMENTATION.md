@@ -108,6 +108,29 @@ Note for the report: `request_id` and `resource_id` are `TEXT`
 integers — a deliberate choice for readability in demos/reports,
 documented in `database/schema.sql`'s comments.
 
+### Submission templates (`templates/`)
+
+The course provided example CSV templates (`templates/*_template.csv`)
+showing an alternate column naming/ID style (e.g. `L001`/`R001` string
+IDs, `location_type`, `x_coord`/`y_coord`, a 1-5 numeric `urgency`).
+The working system's schema, models, and all downstream code
+(`RouteService`, `SchedulingEngine`, repositories, tests) are built
+around the internal schema in `database/schema.sql` instead, which was
+finalised earlier and is what the tested, demoed application actually
+runs on.
+
+To satisfy both without risking the working system this close to
+submission, `scripts/export_submission_templates.py` translates the
+real dataset in `data/processed/` into the templates' exact column
+names and ID/value formats, writing the result to
+`data/submission_templates/`. It is a one-way, read-only export (run
+it any time `data/processed/` changes); it does not touch the schema,
+models, or application code. Notable translation choices: distance
+converted from metres to km; the 4-level `urgency` enum mapped to the
+template's 1-5 scale (`LOW=1, MEDIUM=2, HIGH=4, CRITICAL=5`); `status`
+`PENDING` mapped to the template's `NEW` (other statuses pass through
+unchanged).
+
 ---
 
 ## 4. System Architecture and Module Design
